@@ -40,7 +40,7 @@ public class HomeControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$./").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.employees[*].employeeId").isNotEmpty());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.").isNotEmpty());
     }
 
     @Test
