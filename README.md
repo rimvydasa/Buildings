@@ -1,7 +1,7 @@
 # Buildings
 Registry for buildings REST API.
 
-I used MySQL database.
+MySQL database.
 1. In terminal need to run mysql server with command : mysql.server start
 2. Start the project and a database will be created automatically. The database is empty. Use POST endpoint for insert first data.
 3. Can check all endpoints with this address: http://localhost:8080/swagger-ui.html
