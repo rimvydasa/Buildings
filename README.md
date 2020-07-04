@@ -3,8 +3,11 @@ Registry for buildings REST API.
 
 MySQL database.
 1. In terminal need to run mysql server with command : mysql.server start
-    Conntect to: mysql -u root -p 
+
+    Conntect to: mysql -u root -p
+    
     Create a schema :CREATE DATABASE dbname;
+    
     Open project and go to: application.properties and set this
     
     spring.datasource.url=jdbc:mysql://localhost:3306/dbname
