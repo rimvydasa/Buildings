@@ -1,36 +1,42 @@
 # Buildings
 Registry for buildings REST API.
 
-MySQL database.
-1. In terminal need to run mysql server with command : mysql.server start
+H-2 in-memory database.
 
-    Conntect to: mysql -u root -p
+1. Run the project, an empty database will be created according @Entities.
     
-    Create a schema :CREATE DATABASE dbname;
-    
-    Open project and go to: application.properties and set this
-    
-    spring.datasource.url=jdbc:mysql://localhost:3306/dbname
-    
-    spring.datasource.username=root 
-    
-    spring.datasource.password=root
-    
-2. Start"RUN" the project and a database will be created automatically. The database is empty. Use POST endpoint for insert first data.
+2. The database is empty. Use POST endpoint for insert first data. 
 
-3. Can check all endpoints with this address: http://localhost:8080/swagger-ui.html
+3. First need to reate PropertyType with needed yearly percentage (to add to Building, when adding new) use http://localhost:8080/addpropertytype to create PropertyType. Can use this JSON:
 
-4. There are 6 endpoints. Each endpoint has a different purpose.
+{
+    "propertyType": "Office",
+    "taxPercentage": 1.5
+}
 
-    GET - http://localhost:8080/api/buildings/ (can check in postman or in browser) - get a list of all buildings,
-    
-    GET - http://localhost:8080/api/buildings/{id} (can check in postman or in browser) - get a specific building,
-    
-    POST - http://localhost:8080/api/buildings/ (can use in postman or in swagger) - insert the desired building, leaving the ID box blank. Id will be generated automatically
-    
-    PUT -  http://localhost:8080/api/buildings/{id} (can use in postman or in swagger) - enter the ID number you want to change the information.
-    
-    DELETE - http://localhost:8080/api/buildings/{id} (can use in postman or in swagger) - enter the ID number you want to delete the building data.
-    
-    DELETE - http://localhost:8080/api/buildings/ (can use in postman or in swagger) - delete a list of all buildings.
-    
+and http://localhost:8080/addowner Can use this JSON:
+
+{
+    "name": "tomas"
+}
+
+4. Add building to registry using http://localhost:8080/addbuilding/{propertyTypeId}   (building will be added only with PropertyType you provide as @PathVariable).
+
+5. Owner can be added by updating building by providing owners id (also can edit all fields including update property type: http://localhost:8080/editbuilding/{ownerId}/{propertyTypeId}  Use JSON:
+
+ {
+"city": "vilnius",
+"street": "Ateities",
+"number": 5,
+"sizeInSquareMeters": 58,
+"value": 52100
+ }
+
+6. Can check all endpoints with this address by Swagger: http://localhost:8080/swagger-ui.html
+,or use Postman.
+
+7. DELETING OWNER is possible when owner does not own any buildings. If you want to delete owner, first need to update building's foreign key with other owner. Same goes to Property type. 
+
+8. You can calculate yearly tax rate of particular owner of all owned buildings by providing this endpoint with owners ID:  http://localhost:8080/ownertax/{id} 
+    NOTE: if property value is under 100, program calculates fixed 1 currency amount per year.
+
